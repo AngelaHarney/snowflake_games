@@ -2,21 +2,6 @@ def run_streamlit():
    import streamlit as st
 
    st.set_page_config(layout="wide")
-   if 'total_points' not in st.session_state:
-      st.session_state.total_points = 0
-      st.session_state.con_sql_lvl1_getstarted_points = 0
-      st.session_state.con_sql_lvl1_datamart_points = 0
-      st.session_state.con_sql_lvl1_joinsviews_points = 0
-      st.session_state.con_sql_lvl1_warehousesizing_points = 0
-      st.session_state.con_sql_lvl2_dynamictables_points = 0
-      st.session_state.con_sql_lvl2_dynamictablesnext_points = 0
-      st.session_state.con_inter_warehousesizing_1 = 0
-      st.session_state.con_inter_warehousesizing_2 = 0
-      st.session_state.con_inter_dynamictable_1 = 0
-      st.session_state.con_inter_dynamictable_2 = 0
-      st.session_state.con_adv_streamlitgame_1 = 0
-
-
    st.title(":blue[Snowflake Games]")
 
    CON_POINTS0 = 0
@@ -27,20 +12,7 @@ def run_streamlit():
    CON_POINTS5 = 5
    CON_POINTS6 = 6
 
-
-   def displaytext_total_game_points():
-      st.session_state.total_points = st.session_state.con_sql_lvl1_getstarted_points
-      st.session_state.total_points += st.session_state.con_sql_lvl1_datamart_points
-      st.session_state.total_points += st.session_state.con_sql_lvl1_joinsviews_points
-      st.session_state.total_points += st.session_state.con_sql_lvl1_warehousesizing_points
-      st.session_state.total_points += st.session_state.con_sql_lvl2_dynamictables_points 
-      st.session_state.total_points += st.session_state.con_sql_lvl2_dynamictablesnext_points 
-      st.session_state.total_points += st.session_state.con_inter_warehousesizing_1 
-      st.session_state.total_points += st.session_state.con_inter_warehousesizing_2 
-      st.session_state.total_points += st.session_state.con_inter_dynamictable_1 
-      st.session_state.total_points += st.session_state.con_inter_dynamictable_2 
-      st.session_state.total_points += st.session_state.con_adv_streamlitgame_1
-      st.markdown(f':orange[*Total Score All Games = {st.session_state.total_points}*]')
+   ACTIVE_GAME_NAME = ''
 
    def displaytext_correct(score):
       st.markdown(f':green[*Correct!  (score={score})*]')
@@ -69,8 +41,6 @@ def run_streamlit():
    def display_snowflake_streamlit_docs_url():
       st.markdown("""*[Snowflake documentation - https://docs.snowflake.com/en/developer-guide/streamlit/about-streamlit]*""")
 
-   def waschanged(key):
-      st.info(st.session_state[key])
 
    #--------------------------------------------------------------------
    # SIDEBAR #
@@ -139,29 +109,29 @@ def run_streamlit():
       )
 
       if game_selected == 'Database Setup':
-         st.session_state.active_game_name = 'con_sql_lvl1_getstarted'
+         ACTIVE_GAME_NAME = 'con_sql_lvl1_getstarted'
       elif game_selected == 'Data Marts for Beginners':
-         st.session_state.active_game_name = 'con_sql_lvl1_datamart'
+         ACTIVE_GAME_NAME = 'con_sql_lvl1_datamart'
       elif game_selected == 'SQL Joins and Views':
-         st.session_state.active_game_name = 'con_sql_lvl1_joinsviews'
+         ACTIVE_GAME_NAME = 'con_sql_lvl1_joinsviews'
       elif game_selected == 'Pick the right warehouse size':
-         st.session_state.active_game_name = 'con_sql_lvl1_warehousesizing'
+         ACTIVE_GAME_NAME = 'con_sql_lvl1_warehousesizing'
       elif game_selected == 'Create a Dynamic Table':
-         st.session_state.active_game_name = 'con_sql_lvl2_dynamictables'
+         ACTIVE_GAME_NAME = 'con_sql_lvl2_dynamictables'
       elif game_selected == 'Next steps with Dynamic Tables':
-         st.session_state.active_game_name = 'con_sql_lvl2_dynamictablesnext'
+         ACTIVE_GAME_NAME = 'con_sql_lvl2_dynamictablesnext'
       elif game_selected == 'Warehouse Sizing Challenge #1':
-         st.session_state.active_game_name = 'con_inter_warehousesizing_1'
+         ACTIVE_GAME_NAME = 'con_inter_warehousesizing_1'
       elif game_selected == 'Optimizing Queries #1':
-         st.session_state.active_game_name = 'con_inter_queryoptimizing_1'
+         ACTIVE_GAME_NAME = 'con_inter_queryoptimizing_1'
       elif game_selected == 'Design a Dynamic Table #1':
-         st.session_state.active_game_name = 'con_inter_dynamictable_1'
+         ACTIVE_GAME_NAME = 'con_inter_dynamictable_1'
       elif game_selected == 'Design a Dynamic Table #2':
-         st.session_state.active_game_name = 'con_inter_dynamictable_2'
+         ACTIVE_GAME_NAME = 'con_inter_dynamictable_2'
       elif game_selected == 'Streamlit - Create a question game':
-         st.session_state.active_game_name = 'con_adv_streamlitgame_1'
+         ACTIVE_GAME_NAME = 'con_adv_streamlitgame_1'
       else:
-         st.session_state.active_game_name = None
+         ACTIVE_GAME_NAME = None
 
       st.write('')
       st.write('')
@@ -173,14 +143,12 @@ def run_streamlit():
       st.markdown(":blue[3. Snowflake role context:]")    
       st.markdown("* Execute SQL Worksheet scripts and create Streamlit apps as the SYSADMIN role")
       st.write('')
-      show_points = st.text_input(":orange[Total Game Points]", value=st.session_state.total_points, key='txt_total_points')
-      st.button("Update points")
 
    #--------------------------------------------------------------------
    # con_sql_lvl1_getstarted #
 
    with st.container():
-      if st.session_state.active_game_name == 'con_sql_lvl1_getstarted':
+      if ACTIVE_GAME_NAME == 'con_sql_lvl1_getstarted':
          
          st.subheader(":blue[Level 1 - Database Setup]")
          st.markdown(
@@ -192,9 +160,6 @@ def run_streamlit():
          display_snowflake_docs_url()
          st.markdown("""---""")
       
-         # Get the current credentials
-         session = get_active_session()
-         
          # This will show all questions and their answers when set to True
          logic_override = False;
          
@@ -260,14 +225,12 @@ def run_streamlit():
                               displaytext_pass_game()
                               st.markdown(f':blue[Execute the following script in a SQL Worksheet as sysadmin to create a database with your custom schema.  Refresh the object explorer when done to see the database and schema.]')
                               displaycode(opts_Q004[0] + " \n" + opts_Q004[1] + " \n" + opts_Q004[2] + " \n" + opts_Q004[3])
-                              st.session_state.con_sql_lvl1_getstarted_points = CON_POINTS4
-                              displaytext_total_game_points()
 
    #--------------------------------------------------------------------
    # con_sql_lvl1_datamart #
 
    with st.container():
-      if st.session_state.active_game_name == 'con_sql_lvl1_datamart':
+      if ACTIVE_GAME_NAME == 'con_sql_lvl1_datamart':
 
          st.subheader(":blue[Level 1 - Data Marts for Beginners]")
          st.markdown(
@@ -382,14 +345,12 @@ def run_streamlit():
                                        displaytext_correct(CON_POINTS6)
                                        displaycode(opts_Q006[0] + " \n" + opts_Q006[1] + " \n" + opts_Q006[2] + " \n" + opts_Q006[3])
                                        displaytext_pass_game()
-                                       st.session_state.con_sql_lvl1_datamart_points = CON_POINTS6
-                                       displaytext_total_game_points()
 
    #------------------------------------------------------------------
    # con_sql_lvl1_joinsviews #
 
    with st.container():
-      if st.session_state.active_game_name == 'con_sql_lvl1_joinsviews':
+      if ACTIVE_GAME_NAME == 'con_sql_lvl1_joinsviews':
 
          st.subheader(":blue[Level 1 - SQL Joins and Views]")
          st.markdown(
@@ -500,15 +461,13 @@ def run_streamlit():
                                  st.markdown(f':blue[Execute the following script in a SQL Worksheet as sysadmin to create all objects in your database.  Use the sysadmin role for all your scripts.  Refresh the object explorer when done to see the table and view objects.]')
                                  displaycode(inp_Q001 + "\n\n" + inp_Q002.replace(';',';\n') + "\n\n" + inp_Q003.replace(';',';\n') + "\n\n" + \
                                  opts_Q004[0] + " \n" + opts_Q004[1] + " \n" + opts_Q004[2] + " \n" + opts_Q004[3] + " \n\n" +  inp_Q005.replace('_vw','_vw\n').replace("k'","k'\n"))
-                                 st.session_state.con_sql_lvl1_joinsviews_points = CON_POINTS5
-                                 displaytext_total_game_points()
 
 
    #--------------------------------------------------------------------
    # con_sql_lvl1_warehousesizing #
 
    with st.container():
-      if st.session_state.active_game_name == 'con_sql_lvl1_warehousesizing':
+      if ACTIVE_GAME_NAME == 'con_sql_lvl1_warehousesizing':
                
          st.subheader(":blue[SQL Level 1 - Pick the right warehouse size]")
          st.markdown(
@@ -679,15 +638,13 @@ def run_streamlit():
                               displaytext_pass_game()
                               st.markdown(":blue[Run each of the following EXPLAIN statements one at a time in a SQL Worksheet to see their query plan output.]")
                               displaycode(inp_Q001_pre + " \n\n" + inp_Q002_pre + " \n\n" + inp_Q003_pre + " \n\n" + inp_Q004_pre + " \n\n" + inp_Q005_pre) 
-                              st.session_state.con_sql_lvl1_warehousesizing = CON_POINTS6
-                              displaytext_total_game_points()
                               displaytext_pass_level()
 
    #--------------------------------------------------------------------
    # con_sql_lvl2_dynamictables #
 
    with st.container():
-      if st.session_state.active_game_name == 'con_sql_lvl2_dynamictables':
+      if ACTIVE_GAME_NAME == 'con_sql_lvl2_dynamictables':
       
          st.subheader(":blue[SQL Level 2 - Create a Dynamic Table]")
          st.markdown(
@@ -815,14 +772,12 @@ def run_streamlit():
                                  displaytext_pass_game()
                                  st.markdown(":blue[Execute the following dynamic table statement in a SQL Worksheet, query the table, then modify the data.  Wait 1 minute and query the table again.]")
                                  displaycode(inp_Q005a_post + " \n\n" +inp_Q004_pre + " \n" +  inp_Q005b_post + " \n\n" + opts_Q005[1] + " \n" + inp_Q005b_post) 
-                                 st.session_state.con_sql_lvl2_dynamictables = CON_POINTS5
-                                 displaytext_total_game_points()
          
    #--------------------------------------------------------------------
    # con_sql_lvl2_dynamictablesnext #
 
    with st.container():
-      if st.session_state.active_game_name == 'con_sql_lvl2_dynamictablesnext':
+      if ACTIVE_GAME_NAME == 'con_sql_lvl2_dynamictablesnext':
 
          st.subheader(":blue[SQL Level 2 - Dynamic Tables next steps]")
          st.markdown(
@@ -925,14 +880,12 @@ def run_streamlit():
                               displaytext_correct(CON_POINTS4)
                               displaytext_pass_game()
                               displaytext_pass_level()
-                              st.session_state.con_sql_lvl2_dynamictablesnext = CON_POINTS4
-                              displaytext_total_game_points()
 
    #--------------------------------------------------------------------
    # con_inter_warehousesizing_1 #
 
    with st.container():
-      if st.session_state.active_game_name == 'con_inter_warehousesizing_1':
+      if ACTIVE_GAME_NAME == 'con_inter_warehousesizing_1':
 
          st.subheader(":blue[Puzzles - Intermediate - Warehouse Sizing Challenge - #1]")
          st.markdown("""Each correct answer builds your score!""")
@@ -1076,15 +1029,13 @@ def run_streamlit():
                               displaytext_pass_game()
                            else:
                               displaytext_tryagain(CON_POINTS5)        
-                              st.session_state.con_inter_warehousesizing_1 = CON_POINTS5
-                              displaytext_total_game_points()
                   
 
    #--------------------------------------------------------------------
    # con_inter_queryoptimizing_2 #
 
    with st.container():
-      if st.session_state.active_game_name == 'con_inter_queryoptimizing_1':
+      if ACTIVE_GAME_NAME == 'con_inter_queryoptimizing_1':
 
          st.subheader(":blue[Puzzles - Intermediate - Optimizing Queries #1]")
          st.markdown(
@@ -1243,15 +1194,13 @@ def run_streamlit():
                            elif inp_Q004 != '' or logic_override:
                               displaytext_correct(CON_POINTS5)
                               displaytext_pass_game()
-                              st.session_state.con_inter_warehousesizing_1 = CON_POINTS5
-                              displaytext_total_game_points()
 
 
    #--------------------------------------------------------------------
    # con_inter_dynamictable_1 #
 
    with st.container():
-      if st.session_state.active_game_name == 'con_inter_dynamictable_1':
+      if ACTIVE_GAME_NAME == 'con_inter_dynamictable_1':
 
          st.subheader(":blue[Puzzles - Intermediate - Design a Dynamic Table #1]")
          st.markdown(
@@ -1342,7 +1291,7 @@ def run_streamlit():
    # con_inter_dynamictable_2 #
 
    with st.container():
-      if st.session_state.active_game_name == 'con_inter_dynamictable_2':
+      if ACTIVE_GAME_NAME == 'con_inter_dynamictable_2':
 
          st.subheader(":blue[Puzzles - Intermediate - Design a Dynamic Table #2]")
          st.markdown(
@@ -1409,7 +1358,7 @@ def run_streamlit():
    # con_adv_streamlitgame_1 #
 
    with st.container():
-      if st.session_state.active_game_name == 'con_adv_streamlitgame_1':
+      if ACTIVE_GAME_NAME == 'con_adv_streamlitgame_1':
 
          st.subheader(":blue[Streamlit - Advanced - Create a Question Game]")
          st.markdown(
@@ -1437,7 +1386,6 @@ def run_streamlit():
          from snowflake.snowpark.context import get_active_session
          
          st.set_page_config(layout="wide")
-         st.session_state.total_points = 0
          
          CON_POINTS0 = 0
          CON_POINTS1 = 1
