@@ -241,8 +241,6 @@ def run_streamlit():
          display_snowflake_docs_url()
          st.markdown("""---""")
          
-         # Get the current credentials
-         session = get_active_session()
          
          # This will show all questions and their answers when set to True
          logic_override = False;
@@ -364,8 +362,6 @@ def run_streamlit():
          display_snowflake_docs_url()
          st.markdown("""---""")
          
-         # Get the current credentials
-         session = get_active_session()
          
          # This will show all questions and their answers when set to True
          logic_override = False;
@@ -481,8 +477,6 @@ def run_streamlit():
          display_snowflake_docs_url()
          st.markdown("""---""")
          
-         # Get the current credentials
-         session = get_active_session()
          
          # This will show all questions and their answers when set to True
          logic_override = False;
@@ -658,8 +652,6 @@ def run_streamlit():
          display_snowflake_dynamic_tables_url()
          st.markdown("""---""")
          
-         # Get the current credentials
-         session = get_active_session()
          
          # This will show all questions and their answers when set to True
          logic_override = False;
@@ -792,8 +784,6 @@ def run_streamlit():
          display_snowflake_dynamic_tables_next_url()
          st.markdown("""---""")
          
-         # Get the current credentials
-         session = get_active_session()
          
          # This will show all questions and their answers when set to True
          logic_override = False;
@@ -895,8 +885,6 @@ def run_streamlit():
          display_snowflake_docs_url()
          st.markdown("""---""")
          
-         # Get the current credentials
-         session = get_active_session()
          
          # This will show all questions and their answers when set to True
          logic_override = False;
@@ -1046,9 +1034,7 @@ def run_streamlit():
          )
          display_snowflake_docs_url()
          st.markdown("""---""")
-         
-         # Get the current credentials
-         session = get_active_session()
+
          
          # This will show all questions and their answers when set to True
          logic_override = False;
@@ -1215,9 +1201,6 @@ def run_streamlit():
          st.markdown("""*Snowflake documentation - Dynamic Tables Known Limitations - https://docs.snowflake.com/en/user-guide/dynamic-tables-limitations*""")
          st.markdown("""---""")
          
-         # Get the current credentials
-         session = get_active_session()
-         
          
          inp_Q001_pre = ("use schema snowflake_sample_data.tpcds_sf10Tcl; \n" 
          "with v1 as ( \n"
@@ -1306,9 +1289,6 @@ def run_streamlit():
          st.markdown("""*Snowflake documentation - Dynamic Tables Known Limitations - https://docs.snowflake.com/en/user-guide/dynamic-tables-limitations*""")
          st.markdown("""---""")
          
-         # Get the current credentials
-         session = get_active_session()
-         
          
          inp_Q001_pre = ("use schema snowflake_sample_data.tpch_sf1000; \n"  
          "  select \n" 
@@ -1383,7 +1363,6 @@ def run_streamlit():
 
          st.code("""
          import streamlit as st
-         from snowflake.snowpark.context import get_active_session
          
          st.set_page_config(layout="wide")
          
@@ -1409,8 +1388,6 @@ def run_streamlit():
                st.markdown(" ")
          
          st.title(":blue[Snowflake Games]")
-         
-         session = get_active_session()
          
          # change this to False to run game one question at a time after debugging
          logic_override = True;
