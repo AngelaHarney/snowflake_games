@@ -2,7 +2,7 @@ def run_streamlit():
    import streamlit as st
 
    st.set_page_config(layout="wide")
-   st.title(":blue[Snowflake Games]")
+   st.title(":blue[Learning Snowflake]")
 
    CON_POINTS0 = 0
    CON_POINTS1 = 1
@@ -1390,7 +1390,7 @@ def run_streamlit():
          def display_blank_line():
                st.markdown(" ")
          
-         st.title(":blue[Snowflake Games]")
+         st.title(":blue[Learning Snowflake]")
          
          # change this to False to run game one question at a time after debugging
          logic_override = True;
