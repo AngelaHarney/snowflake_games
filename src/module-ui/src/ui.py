@@ -2,7 +2,7 @@ def run_streamlit():
    import streamlit as st
 
    st.set_page_config(layout="wide")
-   st.title(":blue[Snowflake Games]")
+   st.title(":blue[Learning Snowflake]")
 
    CON_POINTS0 = 0
    CON_POINTS1 = 1
